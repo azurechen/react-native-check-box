@@ -42,12 +42,15 @@ export default class CheckBox extends Component {
         checkBoxColor: PropTypes.string,
         disabled: PropTypes.bool,
         activeOpacity: PropTypes.number,
+        verticalAlignment: PropTypes.string,
     }
     static defaultProps = {
         isChecked: false,
         isIndeterminate: false,
         leftTextStyle: {},
-        rightTextStyle: {}
+        rightTextStyle: {},
+        activeOpacity: 1,
+        verticalAlignment: 'center',
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -105,6 +108,9 @@ export default class CheckBox extends Component {
     }
 
     render() {
+        let alignItems = this.props.verticalAlignment;
+        if (alignItems === 'top') alignItems = 'flex-start';
+        else if (alignItems === 'bottom') alignItems = 'flex-end';
         return (
             <TouchableHighlight
                 style={this.props.style}
@@ -113,7 +119,7 @@ export default class CheckBox extends Component {
                 disabled={this.props.disabled}
                 activeOpacity={this.props.activeOpacity}
             >
-                <View style={styles.container}>
+                <View style={[styles.container, { alignItems }]}>
                     {this._renderLeft()}
                     {this._renderImage()}
                     {this._renderRight()}
@@ -124,8 +130,7 @@ export default class CheckBox extends Component {
 }
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
-        alignItems: 'center'
+        flexDirection: 'row'
     },
     leftText: {
         flex: 1,
