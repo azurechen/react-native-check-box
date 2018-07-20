@@ -118,6 +118,7 @@ export default class CheckBox extends Component {
                 underlayColor='transparent'
                 disabled={this.props.disabled}
                 activeOpacity={this.props.activeOpacity}
+                {...this.props}
             >
                 <View style={[styles.container, { alignItems }]}>
                     {this._renderLeft()}
